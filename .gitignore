@@ -1,0 +1,4 @@
+temporal/
+*.log
+*.bak
+```<|end|><|start|>write to=assistant<|channel|>analysis<|message|>Created file successfully: Desktop/Curso_IA/IABD_este_año/BDA/BDA_UT1_Pentaho_Hoteles/.gitignore
