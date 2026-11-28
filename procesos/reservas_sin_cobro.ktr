@@ -477,11 +477,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Filtrar_id_reserva_cobro</from>
-      <to>Unión por clave 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Unión por clave 2</from>
       <to>Selecciona/Renombra valores 2</to>
       <enabled>Y</enabled>
@@ -499,6 +494,16 @@
     <hop>
       <from>Ordenar filas</from>
       <to>Crear_reservas_sin_cobro</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filtrar_id_reserva_cobro</from>
+      <to>Ordenar filas 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Ordenar filas 2</from>
+      <to>Unión por clave 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -566,7 +571,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>$(Internal.Transformation.Filename.Directory)/../temporal/reservas_sin_cobro</name>
+      <name>${Internal.Transformation.Filename.Directory}/../temporal/reservas_sin_cobro</name>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
       <extention>csv</extention>
@@ -583,6 +588,66 @@
       <splitevery/>
     </file>
     <fields>
+      <field>
+        <name>hotel</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>9</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>id_reserva</name>
+        <type>Integer</type>
+        <format>#</format>
+        <currency>EUR</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>15</length>
+        <precision>0</precision>
+      </field>
+      <field>
+        <name>canal</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>9</length>
+        <precision>-1</precision>
+      </field>
+      <field>
+        <name>importe</name>
+        <type>Number</type>
+        <format>#.#</format>
+        <currency>EUR</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>6</length>
+        <precision>2</precision>
+      </field>
+      <field>
+        <name>motivo</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif/>
+        <trim_type>none</trim_type>
+        <length>-1</length>
+        <precision>-1</precision>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -609,7 +674,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <send_true_to>Unión por clave 2</send_true_to>
+    <send_true_to>Ordenar filas 2</send_true_to>
     <send_false_to/>
     <compare>
       <condition>
@@ -629,7 +694,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>288</yloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -796,7 +861,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>352</xloc>
+      <xloc>336</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -909,7 +974,7 @@
     </remotesteps>
     <GUI>
       <xloc>480</xloc>
-      <yloc>144</yloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -925,8 +990,8 @@
       <schema_name/>
     </partitioning>
     <join_type>INNER</join_type>
-    <step1>Ordenar_id_hotel</step1>
-    <step2>Filtrar_id_reserva_cobro</step2>
+    <step1>Ordenar filas 2</step1>
+    <step2>Ordenar_id_hotel</step2>
     <keys_1>
       <key>id_hotel</key>
     </keys_1>
@@ -958,7 +1023,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>C:\Users\moure\Desktop\Curso_IA\IABD_este_año\BDA\BDA_UT1_Pentaho_Hoteles\entrada\cobros_pdi.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/../entrada/cobros_pdi.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -971,7 +1036,7 @@
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
     <format>mixed</format>
-    <encoding/>
+    <encoding>UTF-8</encoding>
     <fields>
       <field>
         <name>id_reserva</name>
@@ -1032,7 +1097,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>C:\Users\moure\Desktop\Curso_IA\IABD_este_año\BDA\BDA_UT1_Pentaho_Hoteles\entrada\hoteles_pdi.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/../entrada/hoteles_pdi.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1045,7 +1110,7 @@
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
     <format>mixed</format>
-    <encoding/>
+    <encoding>UTF-8</encoding>
     <fields>
       <field>
         <name>id_hotel</name>
@@ -1117,7 +1182,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <filename>C:\Users\moure\Desktop\Curso_IA\IABD_este_año\BDA\BDA_UT1_Pentaho_Hoteles\entrada\reservas_pdi.csv</filename>
+    <filename>${Internal.Entry.Current.Directory}/../entrada/reservas_pdi.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -1130,7 +1195,7 @@
     <parallel>N</parallel>
     <newline_possible>N</newline_possible>
     <format>mixed</format>
-    <encoding/>
+    <encoding>UTF-8</encoding>
     <fields>
       <field>
         <name>id_reserva</name>
@@ -1199,6 +1264,48 @@
     <GUI>
       <xloc>16</xloc>
       <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Ordenar filas 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>%%java.io.tmpdir%%</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>id_hotel</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
